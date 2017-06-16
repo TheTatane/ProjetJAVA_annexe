@@ -50,6 +50,10 @@ public class AbaloneUI extends JPanel implements ActionListener {
         //this.setLayout(new GridBagLayout());
         this.setLayout(new BorderLayout());
 
+        game.addJoueur("Antoine");
+        ArrayList<Color> jcolor[] = new ArrayList[2];
+        game.addJoueur("Quentin");
+        game.setJcolor(jcolor);
         //Initialisation des caractères Hex
         listeSymboleHex.add(0x2196); //HautGauche
         listeSymboleHex.add(0x2197); //HautDroit

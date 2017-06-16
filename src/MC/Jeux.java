@@ -15,6 +15,8 @@ public abstract class Jeux {
     protected ArrayList<Color> jcolor[];
     protected String tourJoueur;
 
+    protected ArrayList<Joueur> listJoueur;
+
 /*
     CONSTRUCTEUR
      */
@@ -101,6 +103,26 @@ public abstract class Jeux {
 
     public abstract String getJoueurFromColor(Color color);
 
+
+
+
+    public void ajoutJoueur(Joueur j)
+    {
+        listJoueur.add(j);
+    }
+
+    public Color getCouleurJoueur(String nomJ)
+    {
+        Color color=Color.gray;
+
+        for(int i=0;i<listJoueur.size();i++)
+        {
+            if(listJoueur.get(i).getNom().equals(nomJ))
+                color=listJoueur.get(i).getCouleur();
+        }
+
+        return color;
+    }
 
     /*
     METHODES POUR SAUVEGARDER AVEC BD ICI

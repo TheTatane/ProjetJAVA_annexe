@@ -1,5 +1,7 @@
 package View;
 
+import BD.*;
+
 import MC.*;
 
 import javax.swing.*;
