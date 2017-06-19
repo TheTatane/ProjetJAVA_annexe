@@ -21,10 +21,10 @@ public class Abalone extends Jeux {
         listJoueur = new ArrayList<>();
     }
 
-    @Override
-    public void tourSuivant() {
 
-    }
+
+    @Override
+    public void tourSuivant() { }
 
     @Override
     public int checkVictoire() {

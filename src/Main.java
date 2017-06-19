@@ -12,7 +12,10 @@ public class Main {
 
         Fenetre f = new Fenetre();
         DameChinoise d = new DameChinoise(2, 3, "IA");
-        d.getPlateau().affiche_plateau();
+        Abalone AB = new Abalone();
+        //d.getPlateau().affiche_plateau();
+        AB.getPlateau(). affiche_plateau_voisin();
+
 
     }
 }

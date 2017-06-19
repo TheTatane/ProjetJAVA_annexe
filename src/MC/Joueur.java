@@ -32,7 +32,7 @@ public class Joueur {
         return couleur;
     }
 
-    public void setCouleur(String couleur) {
+    public void setCouleur(Color couleur) {
         this.couleur = couleur;
     }
 }

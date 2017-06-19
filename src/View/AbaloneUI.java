@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by QUENTIN on 02/05/2017.
@@ -17,6 +18,7 @@ public class AbaloneUI extends JPanel implements ActionListener {
     ArrayList<Integer> listeSymboleHex = new ArrayList<Integer>();
     Plateau plateau;
     Abalone game;
+    ArrayList<Integer> listPion = new ArrayList<Integer>();
 
     //Buttons
     JButton tabbutton[] = new JButton[63];
@@ -50,10 +52,12 @@ public class AbaloneUI extends JPanel implements ActionListener {
         //this.setLayout(new GridBagLayout());
         this.setLayout(new BorderLayout());
 
-        game.addJoueur("Antoine");
-        ArrayList<Color> jcolor[] = new ArrayList[2];
-        game.addJoueur("Quentin");
-        game.setJcolor(jcolor);
+        Joueur J1 = new Joueur("Antoine", Color.white);
+        Joueur J2 = new Joueur("Quentin", Color.black);
+        game.ajoutJoueur(J1);
+        game.ajoutJoueur(J2);
+        game.setTourJoueur(J1.getNom());
+
         //Initialisation des caractères Hex
         listeSymboleHex.add(0x2196); //HautGauche
         listeSymboleHex.add(0x2197); //HautDroit
@@ -104,15 +108,6 @@ public class AbaloneUI extends JPanel implements ActionListener {
         plateau = game.getPlateau();
 
 
-        for (int i = 1; i < 62; i++) {
-            tabbutton[i] = new JButton();
-            tabbutton[i].setPreferredSize(new Dimension(20, 20));
-            tabbutton[i].setBorder(new RoundedBorder(50));
-            tabbutton[i].setBackground(Color.darkGray);
-            tabbutton[i].setForeground(plateau.getPlateau()[i].getPion().getCouleur());
-            tabbutton[i].setName(Integer.toString(i));
-        }
-
         for (int i = 0; i < 6; i++) {
             btnDirection[i] = new JButton();
             btnDirection[i].setPreferredSize(new Dimension(30, 30));
@@ -127,6 +122,7 @@ public class AbaloneUI extends JPanel implements ActionListener {
         for(int i=0;i<6;i++)
         {
             panelbtnDirection.add(btnDirection[i]);
+            btnDirection[i].addActionListener(this);
         }
 
         panelDirection.add(panelbtnDirection,BorderLayout.CENTER);
@@ -151,6 +147,15 @@ public class AbaloneUI extends JPanel implements ActionListener {
 
         public void affichePlateau()
         {
+            for (int i = 1; i < 62; i++) {
+                tabbutton[i] = new JButton();
+                tabbutton[i].setPreferredSize(new Dimension(20, 20));
+                tabbutton[i].setBorder(new RoundedBorder(50));
+                tabbutton[i].setBackground(Color.darkGray);
+                tabbutton[i].setForeground(plateau.getPlateau()[i].getPion().getCouleur());
+                tabbutton[i].setName(Integer.toString(i));
+            }
+
             GridBagConstraints constraint = new GridBagConstraints();
             constraint.gridx=5;constraint.gridy=4;
             constraint.gridheight=1; constraint.gridwidth=1;
@@ -187,6 +192,7 @@ public class AbaloneUI extends JPanel implements ActionListener {
             }
         }
 
+
     /*
 
     public AbaloneUI(Plateau p){
@@ -203,6 +209,140 @@ public class AbaloneUI extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        int valPion=0, position=0;
+        boolean trouve=false, ok=false;
 
+        if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(0)))))
+        {
+            System.out.println("Haut gauche");
+            corpAction(1);
+            game.getPlateau().affiche_plateau();
+        }
+        else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(1)))))
+        {
+            System.out.println("Haut droit");
+            corpAction(2);
+            game.getPlateau().affiche_plateau();
+    }
+        else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(2)))))
+        {
+            System.out.println(" gauche");
+            corpAction(3);
+            game.getPlateau().affiche_plateau();
+        }
+        else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(3)))))
+        {
+            System.out.println("Droit");
+            corpAction(4);
+            game.getPlateau().affiche_plateau();
+        }
+        else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(4)))))
+        {
+            System.out.println("Bas gauche");
+            System.out.println("Adv : "+ couleurJoueurAdv());
+            System.out.println("Adv : "+ couleurJoueurActu());
+            corpAction(5);
+            game.getPlateau().affiche_plateau();
+        }
+        else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(5)))))
+        {
+            System.out.println("Bas droit");
+            corpAction(6);
+            game.getPlateau().affiche_plateau();
+        }
+        else
+        {
+            System.out.println(e.getActionCommand());
+            valPion=Integer.parseInt(e.getActionCommand());
+
+            if(plateau.getPlateau()[valPion].getPion().getCouleur() == game.getCouleurJoueur())
+            {
+                if(listPion.size()==0)
+                {
+                    listPion.add(valPion);
+                    tabbutton[valPion].setBorder(new RoundedBorder(30));
+                    tabbutton[valPion].setForeground(Color.RED);
+                }
+                else
+                {
+                    for (int i=0;i<listPion.size();i++)
+                    {
+                        if(listPion.get(i)==valPion)
+                        {
+                            trouve=true;
+                            position=i;
+                        }
+                    }
+
+                    if (!trouve && listPion.size() <3)
+                    {
+                        listPion.add(valPion);
+                        tabbutton[valPion].setBorder(new RoundedBorder(30));
+                        tabbutton[valPion].setForeground(Color.RED);
+                    }
+                    else
+                    {
+                        listPion.remove(position);
+                        tabbutton[valPion].setBorder(new RoundedBorder(30));
+                        tabbutton[valPion].setForeground(plateau.getPlateau()[valPion].getPion().getCouleur());
+                    }
+                }
+            }
+        }
+        System.out.println("Affichage liste : ");
+        for (int pion : listPion)
+            System.out.println(pion);
+
+    }
+
+    public void viderListe()
+    {
+        listPion.clear();
+    }
+    public void swapJoueur()
+    {
+        if(game.getTourJoueur().equals(game.getNomJ(0)))
+        {
+            game.setTourJoueur(game.getNomJ(1));
+        }
+        else
+        {
+            game.setTourJoueur(game.getNomJ(0));
+        }
+    }
+
+    public Color couleurJoueurAdv()
+    {
+        return (game.getTourJoueur().equals(game.getNomJ(0)) ? game.getNomC(1) :  game.getNomC(0));
+    }
+
+    public Color couleurJoueurActu()
+    {
+        return (game.getTourJoueur().equals(game.getNomJ(0)) ? game.getNomC(0) :  game.getNomC(1));
+    }
+
+    public void retierSelection()
+    {
+        for (int i =0; i<listPion.size(); i++)
+        {
+            tabbutton[listPion.get(i)].setBorder(new RoundedBorder(30));
+            tabbutton[listPion.get(i)].setForeground(game.getCouleurJoueur());
+        }
+    }
+
+    public void corpAction(int direction)
+    {
+        retierSelection();
+
+        if(game.getPlateau().jouerCoup(direction,listPion, couleurJoueurAdv()))
+        {
+            for (int i = 1; i < 62; i++)
+            {
+                tabbutton[i].setForeground(plateau.getPlateau()[i].getPion().getCouleur());
+            }
+            game.getPlateau().affiche_plateau_voisin();
+            swapJoueur();
+        }
+        viderListe();
     }
 }

@@ -111,13 +111,23 @@ public abstract class Jeux {
         listJoueur.add(j);
     }
 
-    public Color getCouleurJoueur(String nomJ)
+    public String getNomJ(int i)
+    {
+        return listJoueur.get(i).getNom();
+    }
+
+    public Color getNomC(int i)
+    {
+        return listJoueur.get(i).getCouleur();
+    }
+
+    public Color getCouleurJoueur()
     {
         Color color=Color.gray;
 
         for(int i=0;i<listJoueur.size();i++)
         {
-            if(listJoueur.get(i).getNom().equals(nomJ))
+            if(listJoueur.get(i).getNom().equals(tourJoueur))
                 color=listJoueur.get(i).getCouleur();
         }
 
