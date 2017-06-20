@@ -19,6 +19,7 @@ public class AbaloneUI extends JPanel implements ActionListener {
     Plateau plateau;
     Abalone game;
     ArrayList<Integer> listPion = new ArrayList<Integer>();
+    Joueur jactu;
 
     //Buttons
     JButton tabbutton[] = new JButton[63];
@@ -43,6 +44,7 @@ public class AbaloneUI extends JPanel implements ActionListener {
     JLabel labelPionPousseJ2;
 
 
+    JButton btbBackMenu;
 
 
     public AbaloneUI(Abalone jeu) {
@@ -215,25 +217,29 @@ public class AbaloneUI extends JPanel implements ActionListener {
         if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(0)))))
         {
             System.out.println("Haut gauche");
-            corpAction(1);
+            if(listPion.size()>0)
+                corpAction(1);
             game.getPlateau().affiche_plateau();
         }
         else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(1)))))
         {
             System.out.println("Haut droit");
-            corpAction(2);
+            if(listPion.size()>0)
+                corpAction(2);
             game.getPlateau().affiche_plateau();
     }
         else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(2)))))
         {
             System.out.println(" gauche");
-            corpAction(3);
+            if(listPion.size()>0)
+                corpAction(3);
             game.getPlateau().affiche_plateau();
         }
         else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(3)))))
         {
             System.out.println("Droit");
-            corpAction(4);
+            if(listPion.size()>0)
+                corpAction(4);
             game.getPlateau().affiche_plateau();
         }
         else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(4)))))
@@ -241,13 +247,15 @@ public class AbaloneUI extends JPanel implements ActionListener {
             System.out.println("Bas gauche");
             System.out.println("Adv : "+ couleurJoueurAdv());
             System.out.println("Adv : "+ couleurJoueurActu());
-            corpAction(5);
+            if(listPion.size()>0)
+                corpAction(5);
             game.getPlateau().affiche_plateau();
         }
         else if (e.getActionCommand().equals(Character.toString((char) (int)Integer.valueOf(listeSymboleHex.get(5)))))
         {
             System.out.println("Bas droit");
-            corpAction(6);
+            if(listPion.size()>0)
+                corpAction(6);
             game.getPlateau().affiche_plateau();
         }
         else
@@ -304,10 +312,12 @@ public class AbaloneUI extends JPanel implements ActionListener {
         if(game.getTourJoueur().equals(game.getNomJ(0)))
         {
             game.setTourJoueur(game.getNomJ(1));
+            jactu=game.getJoueurIndice(1);
         }
         else
         {
             game.setTourJoueur(game.getNomJ(0));
+            jactu=game.getJoueurIndice(0);
         }
     }
 
@@ -334,15 +344,33 @@ public class AbaloneUI extends JPanel implements ActionListener {
     {
         retierSelection();
 
-        if(game.getPlateau().jouerCoup(direction,listPion, couleurJoueurAdv()))
+        if(game.getPlateau().jouerCoup(direction,listPion, couleurJoueurAdv(),jactu))
         {
             for (int i = 1; i < 62; i++)
             {
                 tabbutton[i].setForeground(plateau.getPlateau()[i].getPion().getCouleur());
             }
-            game.getPlateau().affiche_plateau_voisin();
+            labelPionPousseJ1.setText("Blanc : Nonbre de pions poussés : "+game.getJoueurIndice(0).getNbPionPoussé());
+            labelPionPousseJ2.setText("Noir : Nonbre de pions poussés : "+game.getJoueurIndice(1).getNbPionPoussé());
+
+            if(game.fin_partie())
+            {
+
+                JOptionPane jop = new JOptionPane();
+                jop.showConfirmDialog(null,
+                        "Victoire",
+                        game.getTourJoueur()+ "à gangné la partie",
+                        JOptionPane.PLAIN_MESSAGE);
+
+                JFrame parent = (JFrame) this.getTopLevelAncestor();
+                parent.dispose();
+
+                Fenetre f = new Fenetre();
+
+            }
             swapJoueur();
         }
         viderListe();
+
     }
 }

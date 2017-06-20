@@ -134,6 +134,12 @@ public abstract class Jeux {
         return color;
     }
 
+
+    public Joueur getJoueurIndice(int i)
+    {
+        return listJoueur.get(i);
+    }
+
     /*
     METHODES POUR SAUVEGARDER AVEC BD ICI
      */

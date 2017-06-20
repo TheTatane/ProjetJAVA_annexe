@@ -288,7 +288,7 @@ public class PlateauAbalone extends Plateau{
     }
 
     //Début de test pour les déplacements
-    public boolean jouerCoup(int direction, ArrayList<Integer> listPion, Color couleurAdv)
+    public boolean jouerCoup(int direction, ArrayList<Integer> listPion, Color couleurAdv,Joueur j)
     {
         boolean ok=false;
         int cpt,adversaire=0;
@@ -329,6 +329,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 1 ecrase");
                                 plateau[listPion.get(0)].getH_gauche().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getH_gauche().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         else if (cpt==2)
@@ -347,6 +348,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 2 ecrase");
                                 plateau[listPion.get(0)].getH_gauche().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getH_gauche().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         decalageHautGauche(listPion);
@@ -391,6 +393,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 1 ecrase");
                                 plateau[listPion.get(0)].getH_droite().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getH_droite().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         else if (cpt==2)
@@ -409,6 +412,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 2 ecrase");
                                 plateau[listPion.get(0)].getH_droite().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getH_droite().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         decalageHautDroit(listPion);
@@ -452,6 +456,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 1 ecrase");
                                 plateau[listPion.get(0)].getDroite().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getDroite().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         else if (cpt==2)
@@ -470,6 +475,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 2 ecrase");
                                 plateau[listPion.get(0)].getDroite().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getDroite().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         decalageDroit(listPion);
@@ -513,6 +519,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 1 ecrase");
                                 plateau[listPion.get(0)].getB_droite().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getB_droite().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         else if (cpt==2)
@@ -531,6 +538,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 2 ecrase");
                                 plateau[listPion.get(0)].getB_droite().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getB_droite().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         decalageBasDroit(listPion);
@@ -576,6 +584,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 1 ecrase");
                                 plateau[listPion.get(0)].getB_gauche().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getB_gauche().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         else if (cpt==2)
@@ -594,6 +603,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 2 ecrase");
                                 plateau[listPion.get(0)].getB_gauche().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getB_gauche().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         decalageBasGauche(listPion);
@@ -639,6 +649,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 1 ecrase");
                                 plateau[listPion.get(0)].getGauche().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getGauche().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         else if (cpt==2)
@@ -657,6 +668,7 @@ public class PlateauAbalone extends Plateau{
                                 System.out.println("CPT : 2 ecrase");
                                 plateau[listPion.get(0)].getGauche().getPion().setValeur(0);
                                 plateau[listPion.get(0)].getGauche().setEtat(0);
+                                j.incrementPoussee();
                             }
                         }
                         decalageGauche(listPion);

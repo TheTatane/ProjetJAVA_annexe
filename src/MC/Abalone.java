@@ -9,6 +9,7 @@ import java.util.Collections;
  */
 public class Abalone extends Jeux {
 
+    private int nbCoupVictoire;
     /*
     CONSTRUCTEUR
      */
@@ -19,8 +20,8 @@ public class Abalone extends Jeux {
         this.joueur=new ArrayList<String>();
         this.plateau=new PlateauAbalone(/*this.jcolor*/);
         listJoueur = new ArrayList<>();
+        nbCoupVictoire=1;
     }
-
 
 
     @Override
@@ -46,6 +47,24 @@ public class Abalone extends Jeux {
     }
 
 
+
+    public boolean fin_partie()
+    {
+        boolean vic=false;
+
+        for(int i=0; i<listJoueur.size();i++)
+        {
+            if(tourJoueur.equals(listJoueur.get(i).getNom()))
+            {
+                if(nbCoupVictoire==listJoueur.get(i).getNbPionPoussé())
+                {
+                    vic=true;
+                }
+            }
+        }
+
+        return vic;
+    }
     /*
     GETTER & SETTER
      */
