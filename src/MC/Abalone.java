@@ -20,7 +20,7 @@ public class Abalone extends Jeux {
         this.joueur=new ArrayList<String>();
         this.plateau=new PlateauAbalone(/*this.jcolor*/);
         listJoueur = new ArrayList<>();
-        nbCoupVictoire=1;
+        nbCoupVictoire=5;
     }
 
 
